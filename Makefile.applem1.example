@@ -1,0 +1,58 @@
+#
+# Pick the MPI C compiler
+CC = mpicc
+#
+
+#
+# cc flag to enable OPENMP
+#
+# OPENMP = -fopenmp
+#
+# Disable openmp
+OPENMP = 
+# 
+# remember to remove depends/install to ensure a rebuild of the dependencies
+# flipping between openmp and not.
+
+#
+# For double precision FFT, use 
+#
+# CPPFLAGS = -DFASTPM_FFT_PRECISION=64
+# CPPFLAGS = `pkg-config --cppflags ompi`
+#
+# Usually, use
+# 
+# CPPFLAGS = -DFASTPM_FFT_PRECISION=32
+
+# on some platforms the domain decomposition
+# can be faster with (craympi adding the flag makes it slower)
+# CPPFLAGS = -DSPARSE_MPI_ALLTOALLV
+CPPFLAGS = `pkg-config --cflags gsl`
+
+#
+# Set special LDFLAGS, 
+# e.g if mpicc cannot find MPI libraries
+#
+# LDFLAGS = `pkg-config --ldflags ompi`
+#
+#LDFLAGS = `pkg-config --libs gsl`
+
+#
+# Use -O3 for faster code
+
+OPTIMIZE = -O3 -g
+
+GSL_LIBS = `pkg-config --libs gsl`
+
+# flags to configure pfft. --enable-avx512 for knl!
+
+PFFT_CONFIGURE_FLAGS = --disable-sse2 --disable-avx
+
+# cflags for configuring pfft.
+PFFT_CFLAGS = 
+#
+#
+# On some systems, DEPCMD has to be modified to include MPI headers
+#
+# DEPCMD = gcc -MG -MP -MT .objs/$(<:%.c=%.o) -MM 
+

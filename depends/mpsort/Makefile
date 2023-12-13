@@ -1,7 +1,7 @@
 CC?=cc
 MPICC?=mpicc
 PREFIX=/usr
-CFLAGS?=-g -Wall -fopenmp
+CFLAGS?=-g -Wall
 
 all: libradixsort.a libmpsort-mpi.a
 
